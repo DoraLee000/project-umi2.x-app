@@ -24,8 +24,8 @@ export default {
       },
     }],
   ],
-  base: '/project-umi/login',
-  publicPath: '/project-umi/login',
+  base: '/project-umi/',
+  publicPath: '/project-umi/',
   proxy:{
     '/api':{
       target:'https://cjy-react-interface.herokuapp.com/',
