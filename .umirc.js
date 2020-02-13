@@ -2,19 +2,11 @@
 // ref: https://umijs.org/config/
 export default {
   treeShaking: true,
-  // routes: [
-  //    { path: '/', component: './users' },
-  //   // { path: '/list', component: './b', Routes: ['./routes/PrivateRoute.js'] },
-  //   // { path: '/users', component: './users/_layout',
-  //   //   routes: [
-  //   //     { path: '/users/detail', component: './users/detail' },
-  //   //     { path: '/users/:id', component: './users/id' }
-  //   //   ]
-  //   // },
-  // ],
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
-    ['umi-plugin-react', {
+    [  
+      'umi-plugin-gh-pages',
+      'umi-plugin-react', {
       antd: true,
       dva: true,
       dynamicImport: false,
@@ -32,6 +24,8 @@ export default {
       },
     }],
   ],
+  base: '/project-umi/',
+  publicPath: '/project-umi/',
   proxy:{
     '/api':{
       target:'https://cjy-react-interface.herokuapp.com/',
