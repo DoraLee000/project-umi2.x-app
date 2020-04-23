@@ -5,7 +5,7 @@ export default {
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
     [  
-      'umi-plugin-gh-pages',
+      // 'umi-plugin-gh-pages',
       'umi-plugin-react', {
       antd: true,
       dva: true,
@@ -24,8 +24,8 @@ export default {
       },
     }],
   ],
-  base: '/project-umi/',
-  publicPath: '/project-umi/',
+  // base: '/',
+  // publicPath: '/',
   proxy:{
     '/api':{
       target:'https://cjy-react-interface.herokuapp.com/',

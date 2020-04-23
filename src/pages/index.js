@@ -4,6 +4,9 @@ import styles from './index.scss';
 import User from './users'
 /**
  * title: 首頁
+ * Routes: 
+ *  - ./src/routes/PrivateRoute.js
+ * authority: ["admin","user"]
  */
 
 function indexPage() {
