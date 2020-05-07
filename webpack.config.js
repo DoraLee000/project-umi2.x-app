@@ -1,5 +1,5 @@
 /**
- * 不是真实的 webpack 配置，仅为兼容 webstorm 和 intellij idea 代码跳转
+ * 不是真實的 webpack 配置，僅為了兼容 webstorm 和 intellij idea 代碼跳轉
  * ref: https://github.com/umijs/umi/issues/1109#issuecomment-423380125
  */
 

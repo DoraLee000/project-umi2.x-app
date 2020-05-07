@@ -14,7 +14,7 @@ const index = ({ dispatch, loading, addLoading, total, page, pageSize, list }) =
       key: 'username',
     },
     {
-      title: '聯絡信箱',
+      title: 'nickname',
       dataIndex: 'nickname',
       key: 'nickname',
     },

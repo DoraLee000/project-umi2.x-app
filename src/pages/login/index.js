@@ -3,19 +3,34 @@
  */
 
 import React from 'react';
-import { login } from './services/login';
 import router from 'umi/router';
-import { Layout,Form, Icon, Input, Button, Checkbox} from 'antd';
+import jwtDecoder from 'jwt-decode';
+import { Layout,Form, Icon, Input, Button, Message } from 'antd';
 import styles from './index.scss';
+import { connect } from 'dva';
+
 const { Content , Footer } = Layout;
 
-const Login = ({ form }) => {
+const Login = ({ form, dispatch, loading }) => {
 	const handleSubmit = () => { 
 		form.validateFields((err, values) => {
 			if (!err) {
-        login(values)
-				.then(data => router.push('/'))
-				.catch(err => console.log(err))
+				dispatch({
+					type: 'login/login',
+					payload: values
+				}).then(res=>{
+					if (res && res.state === 'suc'){
+						const token = jwtDecoder(res.token);
+						const { id, nickname, username, type } = token;
+						localStorage.setItem('username', username);
+						localStorage.setItem('nickname', nickname);
+						localStorage.setItem('userId', id);
+						localStorage.setItem('authority', type === '0' ? 'admin' : 'user');
+						router.push('/')
+					}else{
+						Message.error(res ? res.msg : '登入失敗')
+					}
+				})
 			}
 		})
 	}
@@ -60,7 +75,7 @@ const Login = ({ form }) => {
 						)}
 					</Form.Item>
 					<Form.Item>
-						<Button type="primary" onClick={handleSubmit} htmlType="submit" className="login-form-button">
+						<Button loading={loading} type="primary" onClick={handleSubmit} htmlType="submit" className="login-form-button">
 							Log in
 						</Button>
 					</Form.Item>
@@ -72,4 +87,6 @@ const Login = ({ form }) => {
  	)
 }
 
-export default Form.create()(Login)
+export default connect(({ loading })=>({
+	loading: loading.effects['login/login']
+}))(Form.create()(Login))
