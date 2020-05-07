@@ -13,7 +13,8 @@ function indexPage() {
 
   return (
     <div>
-      <User></User>
+      首頁
+      {/* <User></User> */}
     </div>
   );
 }
