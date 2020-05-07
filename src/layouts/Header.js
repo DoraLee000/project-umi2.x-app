@@ -22,19 +22,17 @@ const Header = ({location}) => {
 		<Affix offsetTop={0}>
 		<div className="header">
 		 <span>OOXX 公司 - 通訊錄</span>
-		 <div>
-				<Menu>
-					<MenuItem key="/">
+				<Menu className="menu">
+					{/* <MenuItem key="/">
 						<Link to="/">首頁</Link>
-					</MenuItem>
-					<MenuItem key="/users">
+					</MenuItem> */}
+					{/* <MenuItem key="/users">
 						<Link to="/users">用戶</Link>
-					</MenuItem>
+					</MenuItem> */}
 					<MenuItem key="/reports">
-						<Link to="/reports">週報</Link>
+						<Link to="/reports">週報撰寫</Link>
 					</MenuItem>
 				</Menu>
-		 	</div>
 
 			<div className="menu-login">
 			<Dropdown overlay={menu}>

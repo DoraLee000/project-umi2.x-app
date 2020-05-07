@@ -7,11 +7,20 @@ body {
 }
 
 a{
-  &:not(:last-child){
+  &:not(:last-child) {
     margin-right: 5px;
   }
 }
 
-.ant-select-dropdown{
+.ant-select-dropdown {
   z-index: 10002;
+}
+
+.ant-menu {
+  background: none;
+}
+
+.global-pagination {
+  text-align: right;
+  margin-top: 20px;
 }

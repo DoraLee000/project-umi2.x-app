@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button , Divider , Message, Popconfirm } from 'antd';
+import { Button, Message, Popconfirm } from 'antd';
 import { Content , Tool } from '@/components/Layout';
 import Table from '@/components/Table';
 import { connect } from 'dva';

@@ -75,7 +75,7 @@ const Login = ({ form, dispatch, loading }) => {
 						)}
 					</Form.Item>
 					<Form.Item>
-						<Button loading={loading} type="primary" onClick={handleSubmit} htmlType="submit" className="login-form-button">
+						<Button loading={loading} type="primary" onClick={handleSubmit} htmlType="submit" className="login-form-button" block>
 							Log in
 						</Button>
 					</Form.Item>

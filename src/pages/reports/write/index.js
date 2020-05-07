@@ -3,9 +3,10 @@
  */
 
 import React, { Component } from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, Message } from 'antd';
 import { Content } from '@/components/Layout';
 import Edit from 'wangeditor';
+import router from 'umi/router';
 import { connect } from 'dva';
 
 class index extends Component {
@@ -35,8 +36,8 @@ class index extends Component {
     const { allUsersList } = this.props
     return (
       <Select placeholder="請選擇接收人">
-        { allUsersList.map(({ nickname }, index )=> [
-          <Select.Option value={index} key={index}>
+        { allUsersList.map(({ username, nickname }, index )=> [
+          <Select.Option value={ username } key={ index }>
             {nickname}
           </Select.Option>
         ])}
@@ -63,10 +64,26 @@ class index extends Component {
 
   handleOK = () => {
     const { editorContent, editorCheck } = this.state
-    this.props.form.validateFields((err,value)=>{
-      if (!err) {
-        if(editorContent && editorCheck){
-          console.log(value,editorContent)
+    this.props.form.validateFields(( err, value )=>{
+      if ( !err ) {
+        if ( editorContent && editorCheck ){
+          // reports 是 connect models 的 namespace
+          this.props.dispatch({ 
+            type: 'reports/addReport', 
+            payload: { ...value, content: editorContent }
+          }).then((res)=>{
+            console.log(res)
+            if ( res && res.state === 'success' ) {
+              Message.success( res.msg || '週報提交成功' );
+              router.push('/reports')
+            }else {
+              Message.error( res.msg || '週報提交失敗' );
+            }
+          })
+        }else {
+          this.setState({
+            editorCheck: false
+          })
         }
       }
     })
@@ -92,7 +109,7 @@ class index extends Component {
           }
           </Form.Item>
           <Form.Item label="接收人">
-            { getFieldDecorator('receiverId',{
+            { getFieldDecorator('username',{
                 rules:[
                   {
                     required:true,
