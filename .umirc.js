@@ -23,6 +23,7 @@ export default {
           ],
         },
       }],
+    ['umi-plugin-gh-pages', options],
   ],
   // routes: [
   //   {
@@ -42,7 +43,8 @@ export default {
   //     ]
   //   }
   // ],
-  // publicPath: '/',
+  base: '/test-gh-pages/',
+  publicPath: '/test-gh-pages/',
   proxy: {
     '/api': {
       target: 'https://cjy-react-interface.herokuapp.com/',
