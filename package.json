@@ -1,6 +1,9 @@
 {
+  "name": "project-umi2.x-app",
+  "homepage": "https://doralee000.github.io/project-umi2.x-app",
   "private": true,
   "scripts": {
+    "deploy": "gh-pages -d dist",
     "start": "umi dev",
     "build": "umi build",
     "test": "umi test",
@@ -13,6 +16,7 @@
     "dva": "^2.6.0-beta.6",
     "echarts": "^4.5.0",
     "echarts-for-react": "^2.0.15-beta.1",
+    "gh-pages": "^2.2.0",
     "jwt-decode": "^2.2.0",
     "node-sass": "^4.13.0",
     "react": "^16.8.6",

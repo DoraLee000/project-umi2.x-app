@@ -8,7 +8,11 @@ export default ({ children, match, route }) => {
   }
 
   if (localStorage.username && match.path === '/login') {
-    router.push('/reports')
+    router.push('/')
+  }
+
+  if (router.authority && !router.authority.includes(localStorage.authority)) {
+    router.push('/')
   }
 
   return children

@@ -1,3 +1,11 @@
+/**
+ * title: 用戶
+ * Routes:
+ *  - ./src/routes/PrivateRoute.js
+ * authority: ["admin"]
+ */
+
+
 import React from 'react';
 import { Button, Message, Popconfirm } from 'antd';
 import { Content, Tool } from '@/components/Layout';
@@ -9,7 +17,7 @@ const index = ({ dispatch, loading, addLoading, total, page, pageSize, list }) =
 
   const columns = [
     {
-      title: '中文姓名',
+      title: '用戶',
       dataIndex: 'username',
       key: 'username',
     },

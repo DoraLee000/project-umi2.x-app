@@ -1,5 +1,8 @@
 /**
- * title: 週報
+ * title: 我的週報
+ * Routes:
+ *  - ./src/routes/PrivateRoute.js
+ * authority: ["admin","user"]
  */
 
 import React, { Component } from 'react';
@@ -9,10 +12,14 @@ import Edit from 'wangeditor';
 import router from 'umi/router';
 import { connect } from 'dva';
 
-class index extends Component {
+// 動態路由
+
+class $id$ extends Component {
 
   constructor(props) {
     super(props);
+
+    this.id = props.match.params.id
     this.state = {
       editorContent: null,
       editorCheck: true
@@ -20,7 +27,19 @@ class index extends Component {
   }
 
   componentDidMount() {
-    this.initEditor();
+    if (this.id) {
+      //編輯
+      this.getDatasEditor()
+        .then(() => {
+          const { content } = this.props.info;
+          this.setState({
+            editorContent: content,
+          });
+          this.initEditor();
+        });
+    } else {
+      this.initEditor();
+    }
     this.getAllUsers();
   }
 
@@ -30,6 +49,13 @@ class index extends Component {
     }).then(res => {
       this.renderUsers();
     })
+  }
+
+  getDatasEditor() {
+    return this.props.dispatch({
+      type: 'reports/fetchInfo',
+      payload: this.id
+    });
   }
 
   renderUsers() {
@@ -68,9 +94,10 @@ class index extends Component {
       if (!err) {
         if (editorContent && editorCheck) {
           // reports 是 connect models 的 namespace
+          console.log('this.id', this.id)
           this.props.dispatch({
-            type: 'reports/addReport',
-            payload: { ...value, content: editorContent }
+            type: this.id ? 'reports/updateReport' : 'reports/addReport',
+            payload: { ...value, content: editorContent, id: this.id }
           }).then((res) => {
             if (res && res.state === 'success') {
               Message.success(res.msg || '週報提交成功');
@@ -94,6 +121,7 @@ class index extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const { editorCheck } = this.state;
+    const { title, receiverName, content } = this.props.info;
     return (
       <Content>
         <Form>
@@ -105,8 +133,9 @@ class index extends Component {
                   message: '用戶名不可以為空'
                 },
               ],
+              initialValue: title
             })(
-              <Input placeholder="請輸入周報標題" />
+              <Input autoComplete="off" placeholder="請輸入周報標題" />
             )
             }
           </Form.Item>
@@ -118,13 +147,18 @@ class index extends Component {
                   message: '用戶名不可以為空'
                 },
               ],
+              initialValue: receiverName
             })(
               this.renderUsers()
             )
             }
           </Form.Item>
           <Form.Item label="內容" required>
-            <div ref="editorRef" style={!editorCheck ? { border: '1px red solid' } : { border: '1px #eee solid' }} />
+            <div
+              ref="editorRef"
+              style={!editorCheck ? { border: '1px red solid' } : { border: '1px #eee solid' }}
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
             {!editorCheck && <p style={{ color: 'red' }}>內容不能為空</p>}
 
           </Form.Item>
@@ -138,4 +172,4 @@ class index extends Component {
   }
 }
 
-export default connect(({ reports }) => ({ ...reports }))(Form.create()(index));
+export default connect(({ reports }) => ({ ...reports }))(Form.create()($id$));

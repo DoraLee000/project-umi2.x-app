@@ -10,9 +10,8 @@ export default {
         antd: true,
         dva: true,
         dynamicImport: false,
-        title: 'project-umi',
+        title: 'project-umi2.x-app',
         dll: false,
-
         routes: {
           exclude: [
             /models\//,
@@ -23,7 +22,6 @@ export default {
           ],
         },
       }],
-    ['umi-plugin-gh-pages', options],
   ],
   // routes: [
   //   {
@@ -43,8 +41,8 @@ export default {
   //     ]
   //   }
   // ],
-  base: '/test-gh-pages/',
-  publicPath: '/test-gh-pages/',
+  // base: '/project-umi2.x-app/',
+  // publicPath: '/project-umi2.x-app/',
   proxy: {
     '/api': {
       target: 'https://cjy-react-interface.herokuapp.com/',
